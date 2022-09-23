@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
 spring:
   application:
     name: MicroserviceIntegration
@@ -8,10 +8,10 @@ spring:
       database: MicroserviceIntDB
       uri: mongodb+srv://rootmicrointuser:QgRPwrZVJpFmBUxf@microserviceintdb.hxjmm8v.mongodb.net/?retryWrites=true&w=majority
   kafka:
-    bootstrap-servers: LTIN138768.mshome.net:9092
+    bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
       group-id: test
       auto-offset-reset: earliest
@@ -19,11 +19,15 @@ spring:
       key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
-        partition.assignment.strategy: org.apache.kafka.client.consumer.RoundRobinAssignor
+        spring:
+          json:
+            trusted:
+              packages: '*'
+        #partition.assignment.strategy: org.apache.kafka.client.consumer.RoundRobinAssignor
         heartbeat.interval.ms: 6000
         session.timeout.ms: 120000
         max.poll.interval.ms: 300000
         request.timeout.ms: 2147483647
         specific.avro.reader: true
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
-        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class:  org.springframework.kafka.support.serializer.JsonDeserializer

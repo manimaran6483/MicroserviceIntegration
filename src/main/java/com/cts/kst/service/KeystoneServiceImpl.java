@@ -5,8 +5,6 @@ import static org.springframework.data.mongodb.core.FindAndModifyOptions.options
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

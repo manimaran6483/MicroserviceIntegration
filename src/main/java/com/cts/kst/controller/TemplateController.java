@@ -3,7 +3,6 @@ package com.cts.kst.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.kst.config.manager.TemplateConfigManager;
 import com.cts.kst.entity.KeystoneParam;
+import com.cts.kst.entity.Request;
 import com.cts.kst.service.KeystoneService;
 
 @RestController
@@ -31,6 +32,10 @@ public class TemplateController {
 	
 	@Autowired
 	private TemplateConfigManager templateManager;
+	
+	@Autowired
+	private KafkaTemplate<Object, Object> kafkaTemplate;
+	
 	
 	@Autowired
 	private KeystoneService keystoneService;
@@ -72,5 +77,11 @@ public class TemplateController {
 	public ResponseEntity<List<KeystoneParam>> getAllJson(){
 		List<KeystoneParam> list = keystoneService.getAllKeystoneParams();
 		return new ResponseEntity<>(list ,HttpStatus.OK);
+	}
+	
+	@PostMapping("produceMessage/{topic}")
+	public ResponseEntity<String> produce(@RequestBody Request input,@PathVariable String topic){
+		kafkaTemplate.send(topic,input);
+		return new ResponseEntity<>("Json pushed to topic" ,HttpStatus.OK);
 	}
 }
