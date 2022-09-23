@@ -57,38 +57,46 @@ public class TemplateConfigManager {
 	public HeaderEnricher sorHeaderEnricher() {
 		return new HeaderEnricher(
 				Collections.singletonMap("ROUTER_TOPIC", 
-						new MessageProcessingHeaderValueMessageProcessor(sorHeader())
+						new StaticHeaderValueMessageProcessor<>(sorHeader())
 				));
 	}
 
 	private Object sorHeader() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return getRouter(keystoneParam)!=null ? getRouter(keystoneParam).getRouters().stream().findFirst().get().getAttributeValue(): null;
 	}
 	
 	public void configure(KeystoneParam param) {
 		keystoneParam = param;
 		log.info("test {}",integrationFlowContext.getRegistry().keySet());
 		IntegrationFlowBuilder flowBuilder = IntegrationFlows.from(
-				Kafka.messageDrivenChannelAdapter(consumerFactory,getTopic(param)).id("keystone-kafka-consumer"))
+				Kafka.messageDrivenChannelAdapter(consumerFactory,getTopic(param)))/*.id("keystone-kafka-consumer"))*/
 				.transform(keystoneParam())
 				.log(LoggingHandler.Level.INFO,getClass().getName(), m-> String.format("Received Request: %s", m ));
 		
-		param.getFlows().stream()
-		.filter(f->f.getEndpoint().equalsIgnoreCase("Component"));
-		
-		if(!param.getRouters().isEmpty()) {
+		if(getRouter(param) !=null && !getRouter(param).getRouters().isEmpty()) {
 			flowBuilder.transform(sorHeaderEnricher()).handle(genericHandler)
-			.log(LoggingHandler.Level.INFO, getClass().getName(), m-> String.format("Processed Successfully"));
+			.log(LoggingHandler.Level.INFO, getClass().getName(), m-> String.format("Route Processed Successfully"));
+		}else {
+			flowBuilder.handle(genericHandler)
+			.log(LoggingHandler.Level.INFO, getClass().getName(), m-> String.format("Flow Processed Successfully"));
 		}
+		
 		integrationFlowContext.registration(flowBuilder.get()).register();
 	}
 
 	private String getTopic(KeystoneParam param) {
 		FlowComponent flowComponent = param.getFlows().stream()
-				.filter(f-> f.getEndpoint().equalsIgnoreCase("Topic"))
+				.filter(f-> f.getType().equalsIgnoreCase("Source"))
 				.findFirst().orElseThrow(RuntimeException::new);
 		
 		return flowComponent.getName();
+	}
+	
+	private FlowComponent getRouter(KeystoneParam param) {
+		FlowComponent fc =  param.getFlows().stream()
+				.filter(f -> f.getEndpoint().equalsIgnoreCase("router"))
+				.findFirst().orElse(null);
+		return fc;
 	}
 }

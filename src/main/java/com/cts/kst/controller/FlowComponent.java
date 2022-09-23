@@ -1,5 +1,6 @@
 package com.cts.kst.controller;
 
+import java.util.List;
 
 public class FlowComponent {
 
@@ -7,6 +8,7 @@ public class FlowComponent {
 	private String type;
 	private String endpoint;
 	private String name;
+	private List<RouterComponent> routers;
 	public String getFlowId() {
 		return flowId;
 	}
@@ -34,6 +36,12 @@ public class FlowComponent {
 	@Override
 	public String toString() {
 		return "FlowComponent [flowId=" + flowId + ", type=" + type + ", endpoint=" + endpoint + ", name=" + name + "]";
+	}
+	public List<RouterComponent> getRouters() {
+		return routers;
+	}
+	public void setRouters(List<RouterComponent> routers) {
+		this.routers = routers;
 	}
 	
 	

@@ -2,34 +2,35 @@ package com.cts.kst.controller;
 
 public class RouterComponent {
 
-	private String routerFieldType;
-	private String routerFieldValue;
-	private String routerDestination;
-	private String routerIndex;
-	public String getRouterFieldType() {
-		return routerFieldType;
+	private String routerFlowId;
+	private String attribute;
+	private String attributeValue;
+	private String name;
+	public String getRouterFlowId() {
+		return routerFlowId;
 	}
-	public void setRouterFieldType(String routerFieldType) {
-		this.routerFieldType = routerFieldType;
+	public void setRouterFlowId(String routerFlowId) {
+		this.routerFlowId = routerFlowId;
 	}
-	public String getRouterFieldValue() {
-		return routerFieldValue;
+	public String getAttribute() {
+		return attribute;
 	}
-	public void setRouterFieldValue(String routerFieldValue) {
-		this.routerFieldValue = routerFieldValue;
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
 	}
-	public String getRouterDestination() {
-		return routerDestination;
+	public String getAttributeValue() {
+		return attributeValue;
 	}
-	public void setRouterDestination(String routerDestination) {
-		this.routerDestination = routerDestination;
+	public void setAttributeValue(String attributeValue) {
+		this.attributeValue = attributeValue;
 	}
-	public String getRouterIndex() {
-		return routerIndex;
+	public String getName() {
+		return name;
 	}
-	public void setRouterIndex(String routerIndex) {
-		this.routerIndex = routerIndex;
+	public void setName(String name) {
+		this.name = name;
 	}
+	
 	
 	
 }

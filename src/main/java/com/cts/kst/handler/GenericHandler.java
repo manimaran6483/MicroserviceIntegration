@@ -8,6 +8,10 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
 
+import com.cts.kst.controller.FlowComponent;
+import com.cts.kst.controller.RouterComponent;
+import com.cts.kst.entity.KeystoneParam;
+
 @Component
 public class GenericHandler implements org.springframework.integration.handler.GenericHandler<Message<?>>{
 
@@ -20,15 +24,20 @@ public class GenericHandler implements org.springframework.integration.handler.G
 	
 	@Override
 	public Object handle(Message<?> payload, MessageHeaders headers) {
-		/*log.info("Inside Generic Handler handle method");
+		log.info("Inside Generic Handler handle method");
 		
 		String sourceSystemCode = headers.get("ROUTER_TOPIC").toString();
 		KeystoneParam param = (KeystoneParam) headers.get("KEYSTONE_PARAM");
-		RouterComponent routerComponent = param.getRouters().stream()
-				.filter(f -> f.getRouterFieldValue().equalsIgnoreCase(sourceSystemCode))
+		FlowComponent fc =  param.getFlows().stream()
+				.filter(f -> f.getEndpoint().equalsIgnoreCase("router"))
 				.findFirst().orElseThrow(RuntimeException::new);
 		
-		String topic = routerComponent.getRouterDestination();
+		  RouterComponent routerComponent =fc.getRouters().stream() .filter(f ->
+		  f.getAttributeValue().equalsIgnoreCase(sourceSystemCode))
+		  .findFirst().orElseThrow(RuntimeException::new);
+		 
+		
+		String topic = routerComponent.getName();
 		kafkaTemplate.send(topic,"random string", payload.getPayload());
 		
 		log.info("Message publised Successfully to topic {}",topic);
@@ -39,8 +48,7 @@ public class GenericHandler implements org.springframework.integration.handler.G
 			
 			@Override
 			public MessageHeaders getHeaders() { return payload.getHeaders(); };
-		};*/
-		return null;
+		};
 	}
 	
 	

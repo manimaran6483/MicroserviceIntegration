@@ -22,8 +22,6 @@ public class KeystoneParam {
 
 	private List<FlowComponent> flows;
 
-	private List<RouterComponent> routers;
-
 	private String key;
 
 	public List<FlowComponent> getFlows() {
@@ -40,14 +38,6 @@ public class KeystoneParam {
 
 	public void setKey(String key) {
 		this.key = key;
-	}
-
-	public List<RouterComponent> getRouters() {
-		return routers;
-	}
-
-	public void setRouters(List<RouterComponent> routers) {
-		this.routers = routers;
 	}
 
 	public String getId() {
