@@ -33,9 +33,6 @@ public class TemplateConfigManager {
 	private IntegrationFlowContext integrationFlowContext;
 	
 	@Autowired
-	private KafkaTemplate<String,Object> kafkaTemplate;
-	
-	@Autowired
 	private ConsumerFactory<String,Object> consumerFactory;
 	
 	@Autowired
@@ -57,15 +54,11 @@ public class TemplateConfigManager {
 	public HeaderEnricher sorHeaderEnricher() {
 		return new HeaderEnricher(
 				Collections.singletonMap("ROUTER_TOPIC", 
-						new StaticHeaderValueMessageProcessor<>(sorHeader())
+						new StaticHeaderValueMessageProcessor<>(getRouter(keystoneParam)!=null 
+						? getRouter(keystoneParam).getRouters().stream().findFirst().get().getAttributeValue(): null)
 				));
 	}
 
-	private Object sorHeader() {
-		
-		return getRouter(keystoneParam)!=null ? getRouter(keystoneParam).getRouters().stream().findFirst().get().getAttributeValue(): null;
-	}
-	
 	public void configure(KeystoneParam param) {
 		keystoneParam = param;
 		log.info("test {}",integrationFlowContext.getRegistry().keySet());

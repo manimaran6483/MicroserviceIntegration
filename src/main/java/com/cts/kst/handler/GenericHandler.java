@@ -1,5 +1,6 @@
 package com.cts.kst.handler;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +26,32 @@ public class GenericHandler implements org.springframework.integration.handler.G
 	@Override
 	public Object handle(Message<?> payload, MessageHeaders headers) {
 		log.info("Inside Generic Handler handle method");
-		
-		String sourceSystemCode = headers.get("ROUTER_TOPIC").toString();
+		String topic=null;
 		KeystoneParam param = (KeystoneParam) headers.get("KEYSTONE_PARAM");
-		FlowComponent fc =  param.getFlows().stream()
-				.filter(f -> f.getEndpoint().equalsIgnoreCase("router"))
-				.findFirst().orElseThrow(RuntimeException::new);
+		String sourceSystemCode = headers.get("ROUTER_TOPIC").toString();
+		if(sourceSystemCode!=null) { // router flow
+			
+			FlowComponent fc =  param.getFlows().stream()
+					.filter(f -> f.getEndpoint().equalsIgnoreCase("router"))
+					.findFirst().orElseThrow(RuntimeException::new);
+			
+			  RouterComponent routerComponent =fc.getRouters().stream() .filter(f ->
+			  f.getAttributeValue().equalsIgnoreCase(sourceSystemCode))
+			  .findFirst().orElseThrow(RuntimeException::new);
+			 
+			
+			topic = routerComponent.getName();
+		}else { // normal flow.
+			FlowComponent destinationFlow =  param.getFlows().stream()
+					.filter(f -> f.getType().equalsIgnoreCase("destination"))
+					.findFirst().orElseThrow(RuntimeException::new);
+			topic = destinationFlow.getName();
+		}
 		
-		  RouterComponent routerComponent =fc.getRouters().stream() .filter(f ->
-		  f.getAttributeValue().equalsIgnoreCase(sourceSystemCode))
-		  .findFirst().orElseThrow(RuntimeException::new);
-		 
-		
-		String topic = routerComponent.getName();
-		kafkaTemplate.send(topic,"random string", payload.getPayload());
-		
-		log.info("Message publised Successfully to topic {}",topic);
+		if(topic !=null) {
+			kafkaTemplate.send(topic,"random string", payload.getPayload());
+			log.info("Message publised Successfully to topic {}",topic);
+		}
 		
 		return new Message<Object>() {
 			@Override

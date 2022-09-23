@@ -5,6 +5,8 @@ import static org.springframework.data.mongodb.core.FindAndModifyOptions.options
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import com.cts.kst.controller.FlowComponent;
 import com.cts.kst.entity.DbSequence;
 import com.cts.kst.entity.KeystoneParam;
 import com.cts.kst.repository.KeystoneParamRepository;
@@ -58,6 +61,37 @@ public class KeystoneServiceImpl implements KeystoneService{
 	public List<KeystoneParam> getAllKeystoneParams() {
 		 List<KeystoneParam> list = keystoneRepo.findAll();
 		return list;
+	}
+
+	@Override
+	public boolean validateRequest(KeystoneParam input) {
+		log.debug("Entering validate request");
+		String msg = null;
+		if(input ==null || input.getFlows()==null || input.getFlows().isEmpty()) {
+			msg = "Invalid Request";
+		}
+		
+		if(msg!=null) {
+			for(FlowComponent f : input.getFlows()) {
+				if(f.getType()==null || f.getType()=="") {
+					msg= "Mandatory field - Type should not be empty/null";
+					break;
+				}else if(f.getEndpoint()==null || f.getEndpoint() =="") {
+					msg= "Mandatory field - Endpoint should not be empty/null";
+					break;
+				}else if(f.getFlowId()==null || f.getFlowId() == "") {
+					msg= "Mandatory field - FlowId should not be empty/null";
+					break;
+				}else if(f.getType().equalsIgnoreCase("destination")) {
+					if(f.getName()!=null && f.getRouters()!=null && !f.getRouters().isEmpty()) {
+						msg= "Send any one of Topic or Routers";
+						break;
+					}
+				}
+			}
+		}
+		log.debug("Exiting Validate Request");
+		return msg==null ? true : false;
 	}
 	
 }

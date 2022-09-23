@@ -3,6 +3,8 @@ package com.cts.kst.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +38,14 @@ public class TemplateController {
 	@PostMapping("build-flow")
 	public ResponseEntity<String> buildFlow(@RequestBody KeystoneParam input){
 		log.info("request : {}",input.toString());
-		keystoneService.saveKeystoneParam(input);
-		templateManager.configure(input);
-		return new ResponseEntity<>("Request Published Successfully " ,HttpStatus.OK);
+		String errorMessage = "";
+		if(keystoneService.validateRequest(input)) {
+			log.debug("Request is valid");
+			keystoneService.saveKeystoneParam(input);
+			templateManager.configure(input);
+			return new ResponseEntity<>("Request Published Successfully " ,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("get-attributes/{requestName}")
