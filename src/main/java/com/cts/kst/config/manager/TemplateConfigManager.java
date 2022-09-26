@@ -53,9 +53,9 @@ public class TemplateConfigManager {
 	@Lazy
 	public HeaderEnricher sorHeaderEnricher() {
 		return new HeaderEnricher(
-				Collections.singletonMap("ROUTER_TOPIC", 
+				Collections.singletonMap("ROUTER", 
 						new StaticHeaderValueMessageProcessor<>(getRouter(keystoneParam)!=null 
-						? getRouter(keystoneParam).getRouters().stream().findFirst().get().getAttributeValue(): null)
+						? getRouter(keystoneParam).getRouters(): null)
 				));
 	}
 

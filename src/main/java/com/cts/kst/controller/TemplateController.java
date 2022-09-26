@@ -43,8 +43,9 @@ public class TemplateController {
 	@PostMapping("build-flow")
 	public ResponseEntity<String> buildFlow(@RequestBody KeystoneParam input){
 		log.info("request : {}",input.toString());
-		String errorMessage = "";
-		if(keystoneService.validateRequest(input)) {
+		String errorMessage = null;
+		errorMessage= keystoneService.validateRequest(input);
+		if(errorMessage==null) {
 			log.debug("Request is valid");
 			keystoneService.saveKeystoneParam(input);
 			templateManager.configure(input);
@@ -81,7 +82,8 @@ public class TemplateController {
 	
 	@PostMapping("produceMessage/{topic}")
 	public ResponseEntity<String> produce(@RequestBody Request input,@PathVariable String topic){
+		log.info(input.toString());
 		kafkaTemplate.send(topic,input);
-		return new ResponseEntity<>("Json pushed to topic" ,HttpStatus.OK);
+		return new ResponseEntity<>("Json pushed to topic "+ topic ,HttpStatus.OK);
 	}
 }

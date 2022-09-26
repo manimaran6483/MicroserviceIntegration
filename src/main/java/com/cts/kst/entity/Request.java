@@ -7,10 +7,13 @@ public class Request {
 	private String transactionId;
 	private String createdDate;
 	private String requestType;
+
+	
+	
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", name=" + name + ", transactionId=" + transactionId + ", createdDate="
-				+ createdDate + ", type=" + requestType + "]";
+				+ createdDate + ", requestType=" + requestType + "]";
 	}
 	public String getId() {
 		return id;
@@ -36,10 +39,12 @@ public class Request {
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
-	public String getType() {
+	public String getRequestType() {
 		return requestType;
 	}
-	public void setType(String requestType) {
+	public void setRequestType(String requestType) {
 		this.requestType = requestType;
 	}
+
+	
 }

@@ -11,6 +11,6 @@ public interface KeystoneService {
 	
 	public List<KeystoneParam> getAllKeystoneParams();
 
-	public boolean validateRequest(KeystoneParam input);
+	public String validateRequest(KeystoneParam input);
 	
 }

@@ -62,14 +62,15 @@ public class KeystoneServiceImpl implements KeystoneService{
 	}
 
 	@Override
-	public boolean validateRequest(KeystoneParam input) {
-		log.debug("Entering validate request");
+	public String validateRequest(KeystoneParam input) {
+		log.info("Entering validate request");
 		String msg = null;
+		
 		if(input ==null || input.getFlows()==null || input.getFlows().isEmpty()) {
 			msg = "Invalid Request";
 		}
 		
-		if(msg!=null) {
+		if(msg==null) {
 			for(FlowComponent f : input.getFlows()) {
 				if(f.getType()==null || f.getType()=="") {
 					msg= "Mandatory field - Type should not be empty/null";
@@ -88,8 +89,8 @@ public class KeystoneServiceImpl implements KeystoneService{
 				}
 			}
 		}
-		log.debug("Exiting Validate Request");
-		return msg==null ? true : false;
+		log.info("Exiting Validate Request");
+		return msg;
 	}
 	
 }
