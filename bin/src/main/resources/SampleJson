@@ -1,0 +1,38 @@
+[
+    {
+        "flows": [
+            {
+                "flowId": "1",
+                "type": "Source",
+                "endpoint": "Topic",
+                "name": "source.topicname"
+            },
+            {
+                "flowId": "2",
+                "type": "destination",
+                "endpoint": "Topic",
+                "name": "destination.topicname"
+            }
+        ],
+        "routers": null,
+        "key": null
+    },
+    {
+        "flows": [
+            {
+                "flowId": "1",
+                "type": "Source",
+                "endpoint": "Topic",
+                "name": "source.topicname"
+            },
+            {
+                "flowId": "2",
+                "type": "destination",
+                "endpoint": "Topic",
+                "name": "destination.topicname"
+            }
+        ],
+        "routers": null,
+        "key": null
+    }
+]

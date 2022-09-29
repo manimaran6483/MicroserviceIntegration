@@ -1,6 +1,7 @@
 server:
   port: 8082
 spring:
+  jackson:    serialization:      fail-on-empty-beans: false
   application:
     name: MicroserviceIntegration
   data:
@@ -31,3 +32,4 @@ spring:
         specific.avro.reader: true
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class:  org.springframework.kafka.support.serializer.JsonDeserializer
+    

@@ -16,6 +16,7 @@ import com.cts.kst.controller.FlowComponent;
 import com.cts.kst.controller.RouterComponent;
 import com.cts.kst.entity.KeystoneParam;
 import com.cts.kst.entity.Request;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
@@ -30,14 +31,22 @@ public class GenericHandler implements org.springframework.integration.handler.G
 	@Override
 	public Object handle(Message<?> payload, MessageHeaders headers) {
 		log.info("Inside Generic Handler handle method");
+		
 		String topic = null;
-		Request request = new ObjectMapper().convertValue(payload, Request.class);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Request request= mapper.convertValue(payload.getPayload(), Request.class);
+		
 		String requestType = request.getRequestType();
-		if(headers.get("ROUTER_TOPIC") !=null) {
+		//String requestType = "membertopic";
+		
+		if(headers.get("ROUTER") !=null) {
+			log.info("inside router");
 			List<RouterComponent> routers = (List<RouterComponent>) headers.get("ROUTER");
 			RouterComponent router = routers.stream().filter(f -> f.getAttributeValue().equalsIgnoreCase(requestType)).findFirst().orElse(null);
 			topic = router.getName();
 		}else {
+			log.info("inside flow");
 			KeystoneParam param = (KeystoneParam) headers.get("KEYSTONE_PARAM");
 			FlowComponent destinationFlow = param.getFlows().stream()
 					.filter(f -> f.getType().equalsIgnoreCase("destination")).findFirst()
@@ -46,9 +55,13 @@ public class GenericHandler implements org.springframework.integration.handler.G
 		}
 		
 		log.info(payload.toString());
+		
 		if (topic != null) {
+			
 			kafkaTemplate.send(topic, RandomStringUtils.random(32), payload.getPayload());
+			
 			log.info("Message publised Successfully to topic {}", topic);
+		
 		}
 
 		return new Message<Object>() {
