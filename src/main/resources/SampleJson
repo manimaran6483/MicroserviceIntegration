@@ -1,38 +1,433 @@
-[
-    {
-        "flows": [
-            {
-                "flowId": "1",
-                "type": "Source",
-                "endpoint": "Topic",
-                "name": "source.topicname"
-            },
-            {
-                "flowId": "2",
-                "type": "destination",
-                "endpoint": "Topic",
-                "name": "destination.topicname"
-            }
-        ],
-        "routers": null,
-        "key": null
-    },
-    {
-        "flows": [
-            {
-                "flowId": "1",
-                "type": "Source",
-                "endpoint": "Topic",
-                "name": "source.topicname"
-            },
-            {
-                "flowId": "2",
-                "type": "destination",
-                "endpoint": "Topic",
-                "name": "destination.topicname"
-            }
-        ],
-        "routers": null,
-        "key": null
-    }
-]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeRecordListener(KafkaMessageListenerContainer.java:2329) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeListener(KafkaMessageListenerContainer.java:2000) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeIfHaveRecords(KafkaMessageListenerContainer.java:1373) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.pollAndInvoke(KafkaMessageListenerContainer.java:1364) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1255) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+Caused by: org.springframework.kafka.listener.ListenerExecutionFailedException: Listener failed; nested exception is org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"]), failedMessage=GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, ROUTER=[com.cts.kst.controller.RouterComponent@5b290314, com.cts.kst.controller.RouterComponent@23597769], kafka_timestampType=CREATE_TIME, id=b99375fe-f5c7-68a5-6703-1040efd17239, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441753472}]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.decorateException(KafkaMessageListenerContainer.java:2717) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeOnMessage(KafkaMessageListenerContainer.java:2683) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeOnMessage(KafkaMessageListenerContainer.java:2643) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2570) ~[spring-kafka-2.8.8.jar:2.8.8]
+	... 9 common frames omitted
+Caused by: org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at org.springframework.integration.support.utils.IntegrationUtils.wrapInHandlingExceptionIfNecessary(IntegrationUtils.java:191) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:113) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:105) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:136) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:457) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.doProduceOutput(AbstractMessageProducingHandler.java:325) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:268) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:232) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:142) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:457) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.doProduceOutput(AbstractMessageProducingHandler.java:325) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:268) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:232) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:142) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.endpoint.MessageProducerSupport.sendMessage(MessageProducerSupport.java:216) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter.sendMessageIfAny(KafkaMessageDrivenChannelAdapter.java:397) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter.access$300(KafkaMessageDrivenChannelAdapter.java:83) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter$IntegrationRecordMessageListener.onMessage(KafkaMessageDrivenChannelAdapter.java:454) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter$IntegrationRecordMessageListener.onMessage(KafkaMessageDrivenChannelAdapter.java:428) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeOnMessage(KafkaMessageListenerContainer.java:2663) ~[spring-kafka-2.8.8.jar:2.8.8]
+	... 11 common frames omitted
+Caused by: java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:4393) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:4324) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.cts.kst.handler.GenericHandler.handle(GenericHandler.java:34) ~[classes/:na]
+	at com.cts.kst.handler.GenericHandler.handle(GenericHandler.java:1) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor61.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper$HandlerMethod.invoke(MessagingMethodInvokerHelper.java:1102) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.invokeHandlerMethod(MessagingMethodInvokerHelper.java:584) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:479) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:357) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:110) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	... 62 common frames omitted
+Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1300) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:400) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.failForEmpty(UnknownSerializer.java:46) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.serialize(UnknownSerializer.java:29) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:728) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:774) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:4371) ~[jackson-databind-2.13.3.jar:2.13.3]
+	... 75 common frames omitted
+
+2022-09-29 14:25:54.019  INFO 8552 --- [ntainer#0-0-C-1] c.c.k.c.manager.TemplateConfigManager    : Received Request: GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, kafka_timestampType=CREATE_TIME, id=79be6438-c444-75cf-026a-0bac6883d212, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441754019}]
+2022-09-29 14:25:54.019  INFO 8552 --- [ntainer#0-0-C-1] com.cts.kst.handler.GenericHandler       : Inside Generic Handler handle method
+2022-09-29 14:25:54.045  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-test-1, groupId=test] Seeking to offset 104 for partition consumertopic-0
+2022-09-29 14:25:54.047 ERROR 8552 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : Error handler threw an exception
+
+org.springframework.kafka.KafkaException: Seek to current after exception; nested exception is org.springframework.kafka.listener.ListenerExecutionFailedException: Listener failed; nested exception is org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"]), failedMessage=GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, ROUTER=[com.cts.kst.controller.RouterComponent@5b290314, com.cts.kst.controller.RouterComponent@23597769], kafka_timestampType=CREATE_TIME, id=afea8cdd-0445-3955-0ad3-a61a8a7c089c, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441754019}]
+	at org.springframework.kafka.listener.SeekUtils.seekOrRecover(SeekUtils.java:208) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.DefaultErrorHandler.handleRemaining(DefaultErrorHandler.java:135) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeErrorHandler(KafkaMessageListenerContainer.java:2700) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2581) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeWithRecords(KafkaMessageListenerContainer.java:2451) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeRecordListener(KafkaMessageListenerContainer.java:2329) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeListener(KafkaMessageListenerContainer.java:2000) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeIfHaveRecords(KafkaMessageListenerContainer.java:1373) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.pollAndInvoke(KafkaMessageListenerContainer.java:1364) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1255) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+Caused by: org.springframework.kafka.listener.ListenerExecutionFailedException: Listener failed; nested exception is org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"]), failedMessage=GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, ROUTER=[com.cts.kst.controller.RouterComponent@5b290314, com.cts.kst.controller.RouterComponent@23597769], kafka_timestampType=CREATE_TIME, id=afea8cdd-0445-3955-0ad3-a61a8a7c089c, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441754019}]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.decorateException(KafkaMessageListenerContainer.java:2717) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeOnMessage(KafkaMessageListenerContainer.java:2683) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeOnMessage(KafkaMessageListenerContainer.java:2643) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2570) ~[spring-kafka-2.8.8.jar:2.8.8]
+	... 9 common frames omitted
+Caused by: org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at org.springframework.integration.support.utils.IntegrationUtils.wrapInHandlingExceptionIfNecessary(IntegrationUtils.java:191) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:113) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:105) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:136) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:457) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.doProduceOutput(AbstractMessageProducingHandler.java:325) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:268) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:232) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:142) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:457) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.doProduceOutput(AbstractMessageProducingHandler.java:325) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:268) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:232) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:142) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.endpoint.MessageProducerSupport.sendMessage(MessageProducerSupport.java:216) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter.sendMessageIfAny(KafkaMessageDrivenChannelAdapter.java:397) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter.access$300(KafkaMessageDrivenChannelAdapter.java:83) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter$IntegrationRecordMessageListener.onMessage(KafkaMessageDrivenChannelAdapter.java:454) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter$IntegrationRecordMessageListener.onMessage(KafkaMessageDrivenChannelAdapter.java:428) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeOnMessage(KafkaMessageListenerContainer.java:2663) ~[spring-kafka-2.8.8.jar:2.8.8]
+	... 11 common frames omitted
+Caused by: java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:4393) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:4324) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.cts.kst.handler.GenericHandler.handle(GenericHandler.java:34) ~[classes/:na]
+	at com.cts.kst.handler.GenericHandler.handle(GenericHandler.java:1) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor61.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper$HandlerMethod.invoke(MessagingMethodInvokerHelper.java:1102) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.invokeHandlerMethod(MessagingMethodInvokerHelper.java:584) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:479) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:357) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:110) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	... 62 common frames omitted
+Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1300) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:400) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.failForEmpty(UnknownSerializer.java:46) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.serialize(UnknownSerializer.java:29) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:728) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:774) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:4371) ~[jackson-databind-2.13.3.jar:2.13.3]
+	... 75 common frames omitted
+
+2022-09-29 14:25:54.381  INFO 8552 --- [on(5)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2022-09-29 14:25:54.564  INFO 8552 --- [on(5)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2022-09-29 14:25:54.570  INFO 8552 --- [ntainer#0-0-C-1] c.c.k.c.manager.TemplateConfigManager    : Received Request: GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, kafka_timestampType=CREATE_TIME, id=8ff87d46-12f4-e031-19c5-cc414aa9dbc8, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441754570}]
+2022-09-29 14:25:54.571  INFO 8552 --- [ntainer#0-0-C-1] com.cts.kst.handler.GenericHandler       : Inside Generic Handler handle method
+2022-09-29 14:25:54.573  INFO 8552 --- [on(5)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2022-09-29 14:25:54.587  WARN 8552 --- [on(5)-127.0.0.1] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [ThreadPoolTaskScheduler-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.12/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.12/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+ java.base@11.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+ java.base@11.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@11.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.12/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.12/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.12/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.12/java.lang.Thread.run(Thread.java:834)
+2022-09-29 14:25:54.588  WARN 8552 --- [on(5)-127.0.0.1] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [org.springframework.integration.dsl.StandardIntegrationFlow#0.org.springframework.kafka.listener.ConcurrentMessageListenerContainer#0-0-C-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.12/java.lang.Thread.sleep(Native Method)
+ app//org.springframework.kafka.listener.ListenerUtils.stoppableSleep(ListenerUtils.java:284)
+ app//org.springframework.kafka.listener.FailedRecordTracker.recovered(FailedRecordTracker.java:178)
+ app//org.springframework.kafka.listener.FailedRecordProcessor$$Lambda$1685/0x00000008008cec40.recovered(Unknown Source)
+ app//org.springframework.kafka.listener.SeekUtils.lambda$doSeeks$5(SeekUtils.java:107)
+ app//org.springframework.kafka.listener.SeekUtils$$Lambda$1669/0x00000008008c4040.accept(Unknown Source)
+ java.base@11.0.12/java.util.ArrayList.forEach(ArrayList.java:1541)
+ app//org.springframework.kafka.listener.SeekUtils.doSeeks(SeekUtils.java:104)
+ app//org.springframework.kafka.listener.SeekUtils.seekOrRecover(SeekUtils.java:207)
+ app//org.springframework.kafka.listener.DefaultErrorHandler.handleRemaining(DefaultErrorHandler.java:135)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeErrorHandler(KafkaMessageListenerContainer.java:2700)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2581)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeWithRecords(KafkaMessageListenerContainer.java:2451)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeRecordListener(KafkaMessageListenerContainer.java:2329)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeListener(KafkaMessageListenerContainer.java:2000)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeIfHaveRecords(KafkaMessageListenerContainer.java:1373)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.pollAndInvoke(KafkaMessageListenerContainer.java:1364)
+ app//org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1255)
+ java.base@11.0.12/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+ java.base@11.0.12/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+ java.base@11.0.12/java.lang.Thread.run(Thread.java:834)
+2022-09-29 14:25:54.589  WARN 8552 --- [on(5)-127.0.0.1] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [kafka-coordinator-heartbeat-thread | test] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.12/java.lang.Object.wait(Native Method)
+ app//org.apache.kafka.clients.consumer.internals.AbstractCoordinator$HeartbeatThread.run(AbstractCoordinator.java:1418)
+2022-09-29 14:25:54.595  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-test-1, groupId=test] Seeking to offset 104 for partition consumertopic-0
+2022-09-29 14:25:54.601  INFO 8552 --- [ntainer#0-0-C-1] o.a.c.loader.WebappClassLoaderBase       : Illegal access: this web application instance has been stopped already. Could not load [jdk.internal.reflect.GeneratedMethodAccessor61]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+
+java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [jdk.internal.reflect.GeneratedMethodAccessor61]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1432) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForClassLoading(WebappClassLoaderBase.java:1420) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.loader.WebappClassLoaderBase.findClass(WebappClassLoaderBase.java:842) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader.findClassIgnoringNotFound(TomcatEmbeddedWebappClassLoader.java:123) ~[spring-boot-2.7.3.jar:2.7.3]
+	at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader.doLoadClass(TomcatEmbeddedWebappClassLoader.java:88) ~[spring-boot-2.7.3.jar:2.7.3]
+	at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader.loadClass(TomcatEmbeddedWebappClassLoader.java:70) ~[spring-boot-2.7.3.jar:2.7.3]
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1220) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at ch.qos.logback.classic.spi.PackagingDataCalculator.loadClass(PackagingDataCalculator.java:204) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.PackagingDataCalculator.bestEffortLoadClass(PackagingDataCalculator.java:228) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.PackagingDataCalculator.computeBySTEP(PackagingDataCalculator.java:135) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.PackagingDataCalculator.populateUncommonFrames(PackagingDataCalculator.java:111) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.PackagingDataCalculator.populateFrames(PackagingDataCalculator.java:104) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.PackagingDataCalculator.calculate(PackagingDataCalculator.java:58) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.ThrowableProxy.calculatePackagingData(ThrowableProxy.java:197) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.spi.LoggingEvent.<init>(LoggingEvent.java:122) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.Logger.buildLoggingEventAndAppend(Logger.java:419) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.Logger.filterAndLog_0_Or3Plus(Logger.java:383) ~[logback-classic-1.2.11.jar:na]
+	at ch.qos.logback.classic.Logger.log(Logger.java:765) ~[logback-classic-1.2.11.jar:na]
+	at org.apache.commons.logging.LogAdapter$Slf4jLocationAwareLog.error(LogAdapter.java:433) ~[spring-jcl-5.3.22.jar:5.3.22]
+	at org.springframework.core.log.LogAccessor.error(LogAccessor.java:149) ~[spring-core-5.3.22.jar:5.3.22]
+	at org.springframework.kafka.KafkaException.selfLog(KafkaException.java:114) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2585) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeWithRecords(KafkaMessageListenerContainer.java:2451) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeRecordListener(KafkaMessageListenerContainer.java:2329) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeListener(KafkaMessageListenerContainer.java:2000) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeIfHaveRecords(KafkaMessageListenerContainer.java:1373) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.pollAndInvoke(KafkaMessageListenerContainer.java:1364) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1255) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2022-09-29 14:25:54.602 ERROR 8552 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : Error handler threw an exception
+
+org.springframework.kafka.KafkaException: Seek to current after exception; nested exception is org.springframework.kafka.listener.ListenerExecutionFailedException: Listener failed; nested exception is org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"]), failedMessage=GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, ROUTER=[com.cts.kst.controller.RouterComponent@5b290314, com.cts.kst.controller.RouterComponent@23597769], kafka_timestampType=CREATE_TIME, id=379c0c24-882d-be8b-5dd8-c1e83ba362e0, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441754571}]
+	at org.springframework.kafka.listener.SeekUtils.seekOrRecover(SeekUtils.java:208) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.DefaultErrorHandler.handleRemaining(DefaultErrorHandler.java:135) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeErrorHandler(KafkaMessageListenerContainer.java:2700) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2581) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeWithRecords(KafkaMessageListenerContainer.java:2451) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeRecordListener(KafkaMessageListenerContainer.java:2329) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeListener(KafkaMessageListenerContainer.java:2000) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeIfHaveRecords(KafkaMessageListenerContainer.java:1373) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.pollAndInvoke(KafkaMessageListenerContainer.java:1364) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1255) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+Caused by: org.springframework.kafka.listener.ListenerExecutionFailedException: Listener failed; nested exception is org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"]), failedMessage=GenericMessage [payload=Request [id=a7bec4a0-3fd3-11ed-8bfe-016ad5e7595d, name=testmember, transactionId=e2bc7f37-137d-4765-84e0-1473e34dd828, createdDate=2022-09-29T08:49:40.330Z, requestType=membertopic], headers={kafka_offset=104, KEYSTONE_PARAM=KeystoneParam [flows=[FlowComponent [flowId=1, type=Source, endpoint=Topic, name=consumertopic], FlowComponent [flowId=2, type=Destination, endpoint=router, name=null]]], kafka_consumer=org.apache.kafka.clients.consumer.KafkaConsumer@3e5f40c8, ROUTER=[com.cts.kst.controller.RouterComponent@5b290314, com.cts.kst.controller.RouterComponent@23597769], kafka_timestampType=CREATE_TIME, id=379c0c24-882d-be8b-5dd8-c1e83ba362e0, kafka_receivedPartitionId=0, kafka_receivedTopic=consumertopic, kafka_receivedTimestamp=1664441380364, kafka_groupId=test, timestamp=1664441754571}]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.decorateException(KafkaMessageListenerContainer.java:2717) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeOnMessage(KafkaMessageListenerContainer.java:2683) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.invokeOnMessage(KafkaMessageListenerContainer.java:2643) ~[spring-kafka-2.8.8.jar:2.8.8]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeRecordListener(KafkaMessageListenerContainer.java:2570) ~[spring-kafka-2.8.8.jar:2.8.8]
+	... 9 common frames omitted
+Caused by: org.springframework.messaging.MessageHandlingException: error occurred during processing message in 'MethodInvokingMessageProcessor' [org.springframework.integration.handler.MethodInvokingMessageProcessor@753d4d45]; nested exception is java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at org.springframework.integration.support.utils.IntegrationUtils.wrapInHandlingExceptionIfNecessary(IntegrationUtils.java:191) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:113) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.ServiceActivatingHandler.handleRequestMessage(ServiceActivatingHandler.java:105) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:136) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:457) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.doProduceOutput(AbstractMessageProducingHandler.java:325) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:268) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:232) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:142) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutput(AbstractMessageProducingHandler.java:457) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.doProduceOutput(AbstractMessageProducingHandler.java:325) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.produceOutput(AbstractMessageProducingHandler.java:268) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageProducingHandler.sendOutputs(AbstractMessageProducingHandler.java:232) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractReplyProducingMessageHandler.handleMessageInternal(AbstractReplyProducingMessageHandler.java:142) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.AbstractMessageHandler.handleMessage(AbstractMessageHandler.java:56) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.AbstractDispatcher.tryOptimizedDispatch(AbstractDispatcher.java:115) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.doDispatch(UnicastingDispatcher.java:133) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.dispatcher.UnicastingDispatcher.dispatch(UnicastingDispatcher.java:106) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractSubscribableChannel.doSend(AbstractSubscribableChannel.java:72) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:317) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.channel.AbstractMessageChannel.send(AbstractMessageChannel.java:272) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:187) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:166) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.GenericMessagingTemplate.doSend(GenericMessagingTemplate.java:47) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.core.AbstractMessageSendingTemplate.send(AbstractMessageSendingTemplate.java:109) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.endpoint.MessageProducerSupport.sendMessage(MessageProducerSupport.java:216) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter.sendMessageIfAny(KafkaMessageDrivenChannelAdapter.java:397) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter.access$300(KafkaMessageDrivenChannelAdapter.java:83) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter$IntegrationRecordMessageListener.onMessage(KafkaMessageDrivenChannelAdapter.java:454) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter$IntegrationRecordMessageListener.onMessage(KafkaMessageDrivenChannelAdapter.java:428) ~[spring-integration-kafka-5.5.14.jar:5.5.14]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doInvokeOnMessage(KafkaMessageListenerContainer.java:2663) ~[spring-kafka-2.8.8.jar:2.8.8]
+	... 11 common frames omitted
+Caused by: java.lang.IllegalArgumentException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:4393) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:4324) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.cts.kst.handler.GenericHandler.handle(GenericHandler.java:34) ~[classes/:na]
+	at com.cts.kst.handler.GenericHandler.handle(GenericHandler.java:1) ~[classes/:na]
+	at jdk.internal.reflect.GeneratedMethodAccessor61.invoke(Unknown Source) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119) ~[spring-messaging-5.3.22.jar:5.3.22]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper$HandlerMethod.invoke(MessagingMethodInvokerHelper.java:1102) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.invokeHandlerMethod(MessagingMethodInvokerHelper.java:584) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.processInternal(MessagingMethodInvokerHelper.java:479) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.support.MessagingMethodInvokerHelper.process(MessagingMethodInvokerHelper.java:357) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	at org.springframework.integration.handler.MethodInvokingMessageProcessor.processMessage(MethodInvokingMessageProcessor.java:110) ~[spring-integration-core-5.5.14.jar:5.5.14]
+	... 62 common frames omitted
+Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.apache.kafka.clients.consumer.KafkaConsumer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: org.springframework.messaging.support.GenericMessage["headers"]->org.springframework.messaging.MessageHeaders["kafka_consumer"])
+	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1300) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:400) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.failForEmpty(UnknownSerializer.java:46) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.serialize(UnknownSerializer.java:29) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeFields(MapSerializer.java:808) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serializeWithoutTypeInfo(MapSerializer.java:764) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:720) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.MapSerializer.serialize(MapSerializer.java:35) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:728) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:774) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319) ~[jackson-databind-2.13.3.jar:2.13.3]
+	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:4371) ~[jackson-databind-2.13.3.jar:2.13.3]
+	... 75 common frames omitted
+
+2022-09-29 14:25:54.610  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-test-1, groupId=test] Revoke previously assigned partitions consumertopic-0
+2022-09-29 14:25:54.611  INFO 8552 --- [ntainer#0-0-C-1] s.k.l.ConcurrentMessageListenerContainer : test: partitions revoked: [consumertopic-0]
+2022-09-29 14:25:54.611  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-test-1, groupId=test] Member consumer-test-1-82b25758-cc9d-4e0e-83f0-8c90ac7e5236 sending LeaveGroup request to coordinator host.docker.internal:9092 (id: 2147483647 rack: null) due to the consumer unsubscribed from all topics
+2022-09-29 14:25:54.613  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-test-1, groupId=test] Resetting generation due to: consumer pro-actively leaving the group
+2022-09-29 14:25:54.613  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-test-1, groupId=test] Request joining group due to: consumer pro-actively leaving the group
+2022-09-29 14:25:54.613  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-test-1, groupId=test] Unsubscribed all topics or patterns and assigned partitions
+2022-09-29 14:25:54.614  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-test-1, groupId=test] Resetting generation due to: consumer pro-actively leaving the group
+2022-09-29 14:25:54.614  INFO 8552 --- [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-test-1, groupId=test] Request joining group due to: consumer pro-actively leaving the group
+2022-09-29 14:25:54.631  INFO 8552 --- [ntainer#0-0-C-1] org.apache.kafka.common.metrics.Metrics  : Metrics scheduler closed
+2022-09-29 14:25:54.631  INFO 8552 --- [ntainer#0-0-C-1] org.apache.kafka.common.metrics.Metrics  : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2022-09-29 14:25:54.631  INFO 8552 --- [ntainer#0-0-C-1] org.apache.kafka.common.metrics.Metrics  : Metrics reporters closed
+2022-09-29 14:25:54.635  INFO 8552 --- [ntainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-test-1 unregistered
+2022-09-29 14:25:54.635  INFO 8552 --- [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : test: Consumer stopped
+2022-09-29 14:25:54.637  INFO 8552 --- [on(5)-127.0.0.1] s.i.k.i.KafkaMessageDrivenChannelAdapter : stopped bean 'org.springframework.integration.dsl.StandardIntegrationFlow#0.kafka:message-driven-channel-adapter#0'
+2022-09-29 14:25:54.638  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {header-enricher} as a subscriber to the 'org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#0' channel
+2022-09-29 14:25:54.638  INFO 8552 --- [on(5)-127.0.0.1] o.s.integration.channel.DirectChannel    : Channel 'MicroserviceIntegration.org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#0' has 0 subscriber(s).
+2022-09-29 14:25:54.638  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'org.springframework.integration.dsl.StandardIntegrationFlow#0.org.springframework.integration.config.ConsumerEndpointFactoryBean#0'
+2022-09-29 14:25:54.638  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {header-enricher} as a subscriber to the 'org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#2' channel
+2022-09-29 14:25:54.639  INFO 8552 --- [on(5)-127.0.0.1] o.s.integration.channel.DirectChannel    : Channel 'MicroserviceIntegration.org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#2' has 0 subscriber(s).
+2022-09-29 14:25:54.639  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'org.springframework.integration.dsl.StandardIntegrationFlow#0.org.springframework.integration.config.ConsumerEndpointFactoryBean#1'
+2022-09-29 14:25:54.639  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {service-activator} as a subscriber to the 'org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#3' channel
+2022-09-29 14:25:54.639  INFO 8552 --- [on(5)-127.0.0.1] o.s.integration.channel.DirectChannel    : Channel 'MicroserviceIntegration.org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#3' has 0 subscriber(s).
+2022-09-29 14:25:54.639  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'org.springframework.integration.dsl.StandardIntegrationFlow#0.org.springframework.integration.config.ConsumerEndpointFactoryBean#2'
+2022-09-29 14:25:54.639  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {bridge} as a subscriber to the 'org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#5' channel
+2022-09-29 14:25:54.640  INFO 8552 --- [on(5)-127.0.0.1] o.s.integration.channel.DirectChannel    : Channel 'MicroserviceIntegration.org.springframework.integration.dsl.StandardIntegrationFlow#0.channel#5' has 0 subscriber(s).
+2022-09-29 14:25:54.640  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean 'org.springframework.integration.dsl.StandardIntegrationFlow#0.org.springframework.integration.config.ConsumerEndpointFactoryBean#3'
+2022-09-29 14:25:54.640  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2022-09-29 14:25:54.641  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.channel.PublishSubscribeChannel    : Channel 'MicroserviceIntegration.errorChannel' has 0 subscriber(s).
+2022-09-29 14:25:54.641  INFO 8552 --- [on(5)-127.0.0.1] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
