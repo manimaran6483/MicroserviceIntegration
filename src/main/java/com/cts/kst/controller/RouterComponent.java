@@ -5,7 +5,7 @@ public class RouterComponent {
 	private String routerFlowId;
 	private String attribute;
 	private String attributeValue;
-	private String name;
+	private String attributeName;
 	public String getRouterFlowId() {
 		return routerFlowId;
 	}
@@ -25,10 +25,15 @@ public class RouterComponent {
 		this.attributeValue = attributeValue;
 	}
 	public String getName() {
-		return name;
+		return attributeName;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.attributeName = name;
+	}
+	@Override
+	public String toString() {
+		return "RouterComponent [routerFlowId=" + routerFlowId + ", attribute=" + attribute + ", attributeValue="
+				+ attributeValue + ", attributeName=" + attributeName + "]";
 	}
 	
 	

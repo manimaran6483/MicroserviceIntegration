@@ -1,5 +1,6 @@
 package com.cts.kst.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -13,16 +14,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Document("KeystoneParam")
 public class KeystoneParam {
 
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	@Transient
 	public static final String SEQUENCE_NAME = "KeystoneParam_sequence";
 
-	@JsonIgnore
 	@Id
-	private String id;
+	private String key;
+	
+	private Date createdDate;
 
 	private List<FlowComponent> flows;
-
-	private String key;
 
 	public List<FlowComponent> getFlows() {
 		return flows;
@@ -40,17 +48,11 @@ public class KeystoneParam {
 		this.key = key;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	@Override
 	public String toString() {
-		return "KeystoneParam [flows=" + flows + "]";
+		return "KeystoneParam [key=" + key + ", createdDate=" + createdDate + ", flows=" + flows + "]";
 	}
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.cts.kst.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,6 +48,7 @@ public class TemplateController {
 		errorMessage= keystoneService.validateRequest(input);
 		if(errorMessage==null) {
 			log.debug("Request is valid");
+			input.setCreatedDate(new Date());
 			keystoneService.saveKeystoneParam(input);
 			templateManager.configure(input);
 			return new ResponseEntity<>("Request Published Successfully " ,HttpStatus.OK);

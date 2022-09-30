@@ -2,13 +2,17 @@ package com.cts.kst.controller;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(value = Include.NON_NULL)
 public class FlowComponent {
 
 	private String flowId;
 	private String type;
 	private String endpoint;
 	private String name;
-	private List<RouterComponent> routers;
+	private List<RouterComponent> routerFlows;
 	public String getFlowId() {
 		return flowId;
 	}
@@ -33,15 +37,17 @@ public class FlowComponent {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Override
-	public String toString() {
-		return "FlowComponent [flowId=" + flowId + ", type=" + type + ", endpoint=" + endpoint + ", name=" + name + "]";
-	}
+	
 	public List<RouterComponent> getRouters() {
-		return routers;
+		return routerFlows;
 	}
 	public void setRouters(List<RouterComponent> routers) {
-		this.routers = routers;
+		this.routerFlows = routers;
+	}
+	@Override
+	public String toString() {
+		return "FlowComponent [flowId=" + flowId + ", type=" + type + ", endpoint=" + endpoint + ", name=" + name
+				+ ", routerFlows=" + routerFlows + "]";
 	}
 	
 	

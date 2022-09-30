@@ -13,4 +13,5 @@ public interface KeystoneService {
 
 	public String validateRequest(KeystoneParam input);
 	
+	public KeystoneParam getRecentConfig();
 }

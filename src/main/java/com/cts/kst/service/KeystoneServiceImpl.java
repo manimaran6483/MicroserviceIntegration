@@ -4,6 +4,7 @@ import static org.springframework.data.mongodb.core.FindAndModifyOptions.options
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class KeystoneServiceImpl implements KeystoneService{
 	public KeystoneParam saveKeystoneParam(KeystoneParam param) {
 		log.info("Entering saveKeystoneParam");
 		String id = String.valueOf(getSequenceNumber(KeystoneParam.SEQUENCE_NAME));
-		param.setId(id);
+		param.setKey(id);
 		log.info("Exiting saveKeystoneParam");
 		return keystoneRepo.save(param);
 	}
@@ -58,6 +59,8 @@ public class KeystoneServiceImpl implements KeystoneService{
 	@Override
 	public List<KeystoneParam> getAllKeystoneParams() {
 		 List<KeystoneParam> list = keystoneRepo.findAll();
+		 list = list.stream().sorted((a, b) -> b.getCreatedDate().compareTo(a.getCreatedDate()))
+					.collect(Collectors.toList());
 		return list;
 	}
 
@@ -91,6 +94,14 @@ public class KeystoneServiceImpl implements KeystoneService{
 		}
 		log.info("Exiting Validate Request");
 		return msg;
+	}
+	
+	@Override
+	public KeystoneParam getRecentConfig() {
+		List<KeystoneParam> list = keystoneRepo.findAll();
+		list = list.stream().sorted((a, b) -> b.getCreatedDate().compareTo(a.getCreatedDate()))
+		.collect(Collectors.toList());
+		return list.get(0);
 	}
 	
 }
